@@ -18,6 +18,7 @@ def test_current_symbol_password():
     assert code != ' ' or code != 'e', f'Password is incorrect'
 
 
+
 def test_door_state():
     code = '123'
     reset_code = '777'
