@@ -1,6 +1,6 @@
 from abc import abstractmethod, ABC
 
-password = '123'
+code = '123'
 
 
 class ILock(ABC):
@@ -9,9 +9,13 @@ class ILock(ABC):
         self.state = False
 
     @abstractmethod
-    def open(self):
+    def open(self, key_code):
         pass
 
     @abstractmethod
     def close(self):
+        pass
+
+    @abstractmethod
+    def check_code(self, key_code):
         pass

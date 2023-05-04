@@ -20,5 +20,7 @@ class Door:
         self.state = False
         return self.state
 
-
-
+    def reset_password(self, key_code):
+        if self.state:
+            self.lock.key = key_code
+        return self.lock.key

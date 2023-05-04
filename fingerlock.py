@@ -2,15 +2,11 @@ from ilock import *
 
 
 class FingerLock(ILock):
-    def open(self):
+    def open(self, key_code):
         if self.state:
             print(f'lock already is opened')
             return self.state
-        # a = input(f'input password: ')
-        a = password
-        if a != self.key:
-            print(f'password {a} is incorrect')
-            return self.state
+        self.check_code(key_code)
         self.state = True
         return self.state
 
@@ -21,7 +17,7 @@ class FingerLock(ILock):
         self.state = False
         return self.state
 
-    def reset_password(self):
-        if self.state:
-            self.key = '777'
-        return self.key
+    def check_code(self, key_code):
+        if self.key != key_code:
+            print(f'password {key_code} is incorrect')
+            return self.state

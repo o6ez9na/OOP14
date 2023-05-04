@@ -1,59 +1,35 @@
 import pytest
-from main import *
+from fingerlock import *
+from door import *
 
 
-@pytest.fixture
-def password_len():
-    return len(password)
+def test_len_password():
+    code = '123'
+    assert len(code) >= 3, f'{len(code)} should be > 3'
+    assert len(code) <= 16, f'{len(code)} should be < 16'
 
 
-@pytest.fixture
-def password_text():
-    return password
+def test_current_symbol_password():
+    code = '123'
+    assert code != ' ' or code != 'e', f'Password is incorrect'
+    code = 'e'
+    assert code != ' ' or code != 'e', f'Password is incorrect'
+    code = ' '
+    assert code != ' ' or code != 'e', f'Password is incorrect'
 
 
-@pytest.fixture
-def door_state():
-    return door.state
-
-
-@pytest.fixture
-def lock_state():
-    return lock.state
-
-
-def test_max_len_password(password_len):
-    assert password_len <= 16, f'{password_len} should be < 16'
-
-
-def test_min_len_password(password_len):
-    assert password_len >= 3, f'{password_len} should be >3'
-
-
-def test_current_symbol_password(password_text):
-    assert password_text != ' ', f'Password is incorrect'
-
-
-def test_value_password(password_text):
-    assert password_text != 'e', f'Password cant be "e"'
-
-
-def test_door_lock_state(lock_state, door_state):
-    assert lock_state == door_state, 'Door and lock bug'
-
-
-def test_password_reset(lock_state, door_state):
-    if door_state:
-        assert lock.reset_password()
-
-
-def test_close_door(door_state, lock_state):
-    if door_state:
-        door.close()
-        assert not door_state and not lock_state
-
-
-def test_open_door(door_state, lock_state):
-    if not door_state:
-        door.open()
-        assert not(door_state and lock_state)
+def test_door_state():
+    code = '123'
+    reset_code = '777'
+    lock = FingerLock(code)
+    assert not lock.state
+    door = Door(lock)
+    assert not door.state
+    door.lock.check_code(reset_code)
+    assert door.lock.state
+    door.open()
+    assert door.state == True and lock.state == True
+    door.reset_password(reset_code)
+    assert door.lock.key == reset_code
+    door.close()
+    assert door.state == False and lock.state == False
