@@ -1,5 +1,7 @@
 from abc import abstractmethod, ABC
 
+password = '123'
+
 
 class ILock(ABC):
     def __init__(self, key: str):
@@ -13,4 +15,3 @@ class ILock(ABC):
     @abstractmethod
     def close(self):
         pass
-

@@ -7,7 +7,7 @@ class FingerLock(ILock):
             print(f'lock already is opened')
             return self.state
         # a = input(f'input password: ')
-        a = '123'
+        a = password
         if a != self.key:
             print(f'password {a} is incorrect')
             return self.state
