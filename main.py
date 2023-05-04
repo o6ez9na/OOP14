@@ -1,8 +1,9 @@
 from door import *
-from fingerlock import *
 password = '123'
 new_password = '777'
 
-lock = FingerLock(password)
-door = Door(lock)
-door.open(password)
+door = Door()
+door.open()
+
+if door.is_open:
+    print('ready')

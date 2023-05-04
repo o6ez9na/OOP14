@@ -3,8 +3,8 @@ from abc import abstractmethod, ABC
 code = '123'
 
 
-class ILock(ABC):
-    def __init__(self, key: str):
+class Lock(ABC):
+    def __init__(self, key=None):
         self.key = key
         self.is_open = False
 

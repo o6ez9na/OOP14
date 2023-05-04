@@ -43,3 +43,12 @@ def test_change_password():
     assert door.lock.key == reset_code
     door.close()
     assert not door.is_open
+
+
+def test_door_without_lock():
+    door = Door()
+    assert not door.is_open
+    door.open()
+    assert door.is_open
+    door.close()
+    assert not door.is_open
