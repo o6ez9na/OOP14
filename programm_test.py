@@ -20,16 +20,26 @@ def test_current_symbol_password():
 
 def test_door_state():
     code = '123'
-    reset_code = '777'
     lock = FingerLock(code)
-    assert not lock.is_open, "State Float one"
+    assert not lock.is_open
     door = Door(lock)
-    assert not door.is_open, "State Float two"
-    door.lock.check_code(reset_code)
-    assert not door.lock.is_open
+    assert not door.is_open
     door.open(code)
     assert door.is_open and lock.is_open
+    door.close()
+    assert not door.is_open and not lock.is_open
+
+
+def test_change_password():
+    code = '123'
+    reset_code = '777'
+    lock = FingerLock(code)
+    door = Door(lock)
+    door.open(reset_code)
+    assert not door.is_open
+    door.open(code)
+    assert door.is_open
     door.change_password(reset_code)
     assert door.lock.key == reset_code
     door.close()
-    assert not door.is_open and not lock.is_open
+    assert not door.is_open

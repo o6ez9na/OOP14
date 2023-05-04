@@ -6,9 +6,9 @@ class FingerLock(ILock):
         if self.is_open:
             print(f'lock already is opened')
             return self.is_open
-        self.check_code(key_code)
-        self.is_open = True
-        return self.is_open
+        if self.check_code(key_code):
+            self.is_open = True
+            return self.is_open
 
     def close(self):
         if not self.is_open:
@@ -20,4 +20,5 @@ class FingerLock(ILock):
     def check_code(self, key_code):
         if self.key != key_code:
             print(f'password {key_code} is incorrect')
-            return self.is_open
+            return False
+        return True

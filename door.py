@@ -9,14 +9,14 @@ class Door:
         self.is_open = False
 
     def open(self, key_code):
-        if self.lock.open(key_code):
+        if self.lock.is_open:
             return self.is_open
-        self.lock.open(key_code)
-        self.is_open = True
-        return self.is_open
+        if self.lock.open(key_code):
+            self.is_open = True
+            return self.is_open
 
     def close(self):
-        if not self.lock.close():
+        if not self.lock.is_open:
             return self.is_open
         self.lock.close()
         self.is_open = False
