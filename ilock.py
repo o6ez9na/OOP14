@@ -6,7 +6,7 @@ code = '123'
 class ILock(ABC):
     def __init__(self, key: str):
         self.key = key
-        self.state = False
+        self.is_open = False
 
     @abstractmethod
     def open(self, key_code):

@@ -3,21 +3,21 @@ from ilock import *
 
 class FingerLock(ILock):
     def open(self, key_code):
-        if self.state:
+        if self.is_open:
             print(f'lock already is opened')
-            return self.state
+            return self.is_open
         self.check_code(key_code)
-        self.state = True
-        return self.state
+        self.is_open = True
+        return self.is_open
 
     def close(self):
-        if not self.state:
+        if not self.is_open:
             print(f'already is closed')
-            return self.state
-        self.state = False
-        return self.state
+            return self.is_open
+        self.is_open = False
+        return self.is_open
 
     def check_code(self, key_code):
         if self.key != key_code:
             print(f'password {key_code} is incorrect')
-            return self.state
+            return self.is_open

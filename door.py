@@ -1,26 +1,27 @@
+from copy import copy
+
 from ilock import ILock
 
 
 class Door:
     def __init__(self, lock: ILock):
         self.lock = lock
-        self.state = False
+        self.is_open = False
 
-    def open(self):
-        if self.lock.open():
-            return self.state
-        self.lock.open()
-        self.state = True
-        return self.state
+    def open(self, key_code):
+        if self.lock.open(key_code):
+            return self.is_open
+        self.lock.open(key_code)
+        self.is_open = True
+        return self.is_open
 
     def close(self):
         if not self.lock.close():
-            return self.state
+            return self.is_open
         self.lock.close()
-        self.state = False
-        return self.state
+        self.is_open = False
+        return self.is_open
 
-    def reset_password(self, key_code):
-        if self.state:
-            self.lock.key = key_code
-        return self.lock.key
+    def change_password(self, key_code):
+        if self.is_open:
+            self.lock.key = copy(key_code)
